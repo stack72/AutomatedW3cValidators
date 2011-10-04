@@ -1,13 +1,15 @@
 ﻿using System;
+using System.IO;
+using System.Web.UI;
+using AutomatedW3cValidator.FileManager;
 using EasyHttp.Http;
 
 namespace AutomatedW3cValidator.Validators
 {
     public class CssValidator
     {
-        private string _url;
+        private readonly string _url;
         public CssValidator(string url)
-
         {
             _url = url;
         }
@@ -15,7 +17,7 @@ namespace AutomatedW3cValidator.Validators
         public void Validate()
         {
             if (string.IsNullOrWhiteSpace(_url))
-                throw new ArgumentNullException("url", "You must specify a URL to validate");
+                throw new ArgumentNullException("You must specify a URL to validate");
 
             var urlToValidate =
                 string.Format(
@@ -23,18 +25,13 @@ namespace AutomatedW3cValidator.Validators
 
             var http = new HttpClient
                            {
-                               Request = {Accept = HttpContentTypes.TextHtml}
+                               Request = { Accept = HttpContentTypes.TextHtml }
                            };
 
             var response = http.Get(urlToValidate);
             var validationSummary = response.RawText;
 
-            SaveTheResponse(validationSummary);
-        }
-
-        private void SaveTheResponse(string validationSummary)
-        {
-            //Save the report goes here
+            FileSave.SaveTheResponse(validationSummary, "CSSReport.html");
         }
     }
 }

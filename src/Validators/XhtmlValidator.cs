@@ -1,11 +1,12 @@
 ﻿using System;
+using AutomatedW3cValidator.FileManager;
 using EasyHttp.Http;
 
 namespace AutomatedW3cValidator.Validators
 {
     public class XhtmlValidator
     {
-        private string _url;
+        private readonly string _url;
         public XhtmlValidator(string url)
         {
             _url = url;
@@ -25,12 +26,7 @@ namespace AutomatedW3cValidator.Validators
             var response = http.Get(urlToValidate);
             var validationSummary = response.RawText;
 
-            SaveTheSummary(validationSummary);
-        }
-
-        private void SaveTheSummary(string validationSummary)
-        {
-            //Save the document here
+            FileSave.SaveTheResponse(validationSummary, "XHTMLReport.html");
         }
     }
 }
