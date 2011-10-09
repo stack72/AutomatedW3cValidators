@@ -1,6 +1,6 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using AutomatedW3cValidator.Validators;
-using Util.ConfigManager;
 
 namespace AutomatedW3cValidator
 {
@@ -8,12 +8,16 @@ namespace AutomatedW3cValidator
     {
         private static void Main(string[] args)
         {
+            if (string.IsNullOrWhiteSpace(args[0]))
+                throw new ArgumentNullException("You need to pass a URL to the validator");
+
             using (var container = Bootstrap.Components())
             {
-                XhtmlValidation(container, "www.google.com");
-                CssValidation(container, "www.google.com");
+                var url = args[0];
+                XhtmlValidation(container, url);
+                
+                CssValidation(container, args[0]);
             }
-
         }
 
         private static void CssValidation(IContainer container, string url)
