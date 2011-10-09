@@ -62,10 +62,11 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="FileManager\FileSave.cs" />
-    <Compile Include="Validators\CssValidator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validators\XhtmlValidator.cs" />
+    <Compile Include="Validators\IValidator.cs" />
+    <Compile Include="Validators\ValidatorType.cs" />
+    <Compile Include="Validators\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

@@ -5,18 +5,14 @@ using Util.ConfigManager;
 
 namespace AutomatedW3cValidator.Validators
 {
-    public interface IXhtmlValidator
-    {
-        string Url { get; set; }
-        void Validate();
-    }
-
-    public class XhtmlValidator: IXhtmlValidator
+    public class Validator : IValidator
     {
         private readonly IConfigManager _configManager;
+
         public string Url { get; set; }
-        
-        public XhtmlValidator(IConfigManager configManager)
+        public ValidatorType ValidatorType { get; set; }
+
+        public Validator(IConfigManager configManager)
         {
             _configManager = configManager;
         }
@@ -26,7 +22,8 @@ namespace AutomatedW3cValidator.Validators
             if (string.IsNullOrWhiteSpace(Url))
                 throw new ArgumentNullException("Url", "Url to validate must be specified");
 
-            var urlToValidate = string.Format("{0}{1}",_configManager.GetAppSetting("XhtmlValidator"), Url);
+            var appSettingName = string.Format("{0}Validator", ValidatorType);
+            var urlToValidate = string.Format("{0}{1}", _configManager.GetAppSetting(appSettingName), Url);
             var http = new HttpClient
             {
                 Request = { Accept = HttpContentTypes.TextHtml }
@@ -35,7 +32,10 @@ namespace AutomatedW3cValidator.Validators
             var response = http.Get(urlToValidate);
             var validationSummary = response.RawText;
 
-            FileSave.SaveTheResponse(validationSummary, "XHTMLReport.html");
+            var reportName = string.Format("{0}Report.html", ValidatorType);
+            FileSave.SaveTheResponse(validationSummary, reportName);
         }
+
+
     }
 }

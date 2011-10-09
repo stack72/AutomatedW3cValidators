@@ -11,13 +11,8 @@ namespace AutomatedW3cValidator
             var builder = new ContainerBuilder();
             builder.Register(c => new ConfigManager()).As<IConfigManager>();
 
-            builder.Register<ICssValidator>(
-                c => new CssValidator(
-                    c.Resolve<IConfigManager>())
-                    );
-
-            builder.Register<IXhtmlValidator>(
-                c => new XhtmlValidator(
+            builder.Register<IValidator>(
+                c => new Validator(
                     c.Resolve<IConfigManager>())
                     );
 
