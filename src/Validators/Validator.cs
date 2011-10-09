@@ -35,7 +35,5 @@ namespace AutomatedW3cValidator.Validators
             var reportName = string.Format("{0}Report.html", ValidatorType);
             FileSave.SaveTheResponse(validationSummary, reportName);
         }
-
-
     }
 }
