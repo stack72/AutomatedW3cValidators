@@ -1,27 +1,33 @@
 ﻿using System;
-using System.IO;
-using System.Web.UI;
 using AutomatedW3cValidator.FileManager;
 using EasyHttp.Http;
+using Util.ConfigManager;
 
 namespace AutomatedW3cValidator.Validators
 {
-    public class CssValidator
+    public interface ICssValidator
     {
-        private readonly string _url;
-        public CssValidator(string url)
+        string Url { get; set; }
+        void Validate();
+    }
+    
+    public class CssValidator: ICssValidator
+    {
+        public string Url { get; set; }
+        private readonly IConfigManager _configManager;
+
+        public CssValidator(IConfigManager configManager)
         {
-            _url = url;
+            _configManager = configManager;
         }
 
         public void Validate()
         {
-            if (string.IsNullOrWhiteSpace(_url))
-                throw new ArgumentNullException("You must specify a URL to validate");
+            if (string.IsNullOrWhiteSpace(Url))
+                throw new ArgumentNullException("Url", "You must specify a URL to validate");
 
             var urlToValidate =
-                string.Format(
-                    "http://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2F{0}%2F&warning=0&profile=css2", _url);
+                string.Format("{0}{1}", _configManager.GetAppSetting("CssValidator"), Url);
 
             var http = new HttpClient
                            {
