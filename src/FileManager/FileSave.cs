@@ -24,7 +24,6 @@ namespace AutomatedW3cValidator.FileManager
             {
                 tw.WriteLine(validationSummary);
             }
-
         }
     }
 }

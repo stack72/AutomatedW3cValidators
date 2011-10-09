@@ -1,23 +1,25 @@
 ﻿using System;
 using AutomatedW3cValidator.FileManager;
 using EasyHttp.Http;
+using Util.ConfigManager;
 
 namespace AutomatedW3cValidator.Validators
 {
     public class XhtmlValidator
     {
-        private readonly string _url;
-        public XhtmlValidator(string url)
+        private IConfigManager _configManager;
+        public string Url { get; set; }
+        
+        public XhtmlValidator(IConfigManager configManager)
         {
-            _url = url;
         }
 
         public void Validate()
         {
-            if (string.IsNullOrWhiteSpace(_url))
-                throw new ArgumentNullException("url", "Url to validate must be specified");
+            if (string.IsNullOrWhiteSpace(Url))
+                throw new ArgumentNullException("Url", "Url to validate must be specified");
 
-            var urlToValidate = string.Format("http://validator.w3.org/check?uri=http%3A%2F%2F{0}", _url);
+            var urlToValidate = string.Format("{0}{1}",_configManager.GetAppSettingAs<bool>("XhtmlValidator"), Url);
             var http = new HttpClient
             {
                 Request = { Accept = HttpContentTypes.TextHtml }
