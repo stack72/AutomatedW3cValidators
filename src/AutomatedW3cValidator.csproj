@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AutomatedW3cValidator</RootNamespace>
-    <AssemblyName>AutomatedW3cValidator</AssemblyName>
+    <AssemblyName>W3CValidator</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

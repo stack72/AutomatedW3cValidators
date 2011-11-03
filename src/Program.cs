@@ -22,8 +22,11 @@ namespace AutomatedW3cValidator
                 string docType = string.Empty;
                 cmdLineArguments.TryGetValue("docType", out docType);
 
-                Validation(container, url, ValidatorType.XHTML, docType);
-                Validation(container, url, ValidatorType.CSS, string.Empty);
+                string validator = string.Empty;
+                cmdLineArguments.TryGetValue("validatorType", out validator);
+                ValidatorType validatorType = (ValidatorType)Enum.Parse(typeof(ValidatorType), validator);
+
+                Validation(container, url, validatorType, docType);
             }
         }
 

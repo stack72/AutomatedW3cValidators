@@ -1,1 +1,11 @@
 simple way to validate a known url using the W3C APIs
+
+XHTML will validate the following:
+XHTML 1.0 Strict                           (use XHTML_10_STRICT as the docType value)
+XHTML 1.0 Frameset                         (use XHTML_10_FRAMESET as the docType value)
+XHTML 1.0 Transitional                     (use XHTML as the docType value - this is the default setting)
+HTML5 (experimental)                       (use HTML5 as the docType value)
+
+In order to use the Validator use it in the following way
+
+W3CValidator.exe -url:<url to validate> -docType:<HTML5> -validatorType:<XHTML or CSS>
